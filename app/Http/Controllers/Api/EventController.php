@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Validator;
+use Illuminate\Support\Str;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
@@ -31,12 +34,13 @@ class EventController extends Controller
             $event->save();
             
             $days = [];
-            foreach ($request->days as $value) {
+            // dd($request->days);
+            foreach ($request->days as $key => $value) {
                 # code...
-                array_push($days, array("name" => $value));
+                array_push($days, array("name" => Str::ucfirst($value)));
             }
-
-            $event->days()->createMany([$days]);
+            // return $days;
+            $event->days()->createMany($days);
 
             return response()->json(["status" => true, "message" => "Event successfully saved!"], 200);
         }
@@ -44,7 +48,7 @@ class EventController extends Controller
 
     public function display_events(Request $request)
     {
-        $event = Event::orderyBy('created_at', 'desc')->with('days')->first();
+        $event = Event::orderBy('created_at', 'desc')->with('days')->first();
 
         return response()->json($event, 200);
     }
