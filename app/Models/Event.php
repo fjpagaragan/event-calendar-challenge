@@ -15,11 +15,6 @@ class Event extends Model
         "end"
     ];
 
-    protected $dates = [
-        "start",
-        "end"
-    ];
-
     public function days()
     {
         return $this->hasMany("App\Models\Day");
