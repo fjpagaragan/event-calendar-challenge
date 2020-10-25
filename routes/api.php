@@ -21,5 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(["prefix" => "events"], function () {
     Route::post("create", [EventController::class, "create_events"]);
+    Route::post("display", [EventController::class, "display_events"]);
 });
 
