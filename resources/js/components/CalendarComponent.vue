@@ -20,7 +20,7 @@
                                 <input
                                     :value="inputValue.start"
                                     v-on="inputEvents.start"
-                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300 form-control"
+                                    class="border px-3 py-1 w-32 rounded text-sm focus:outline-none focus:border-indigo-300 form-control"
                                 />
                                 <svg
                                     class="w-5 h-4 mx-2"
@@ -38,7 +38,7 @@
                                 <input
                                     :value="inputValue.end"
                                     v-on="inputEvents.end"
-                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300 form-control"
+                                    class="border px-3 py-1 w-32 rounded text-sm focus:outline-none focus:border-indigo-300 form-control"
                                 />
                                 </div>
                             </template>
