@@ -50,6 +50,6 @@ class EventController extends Controller
     {
         $event = Event::orderBy('created_at', 'desc')->with('days')->first();
 
-        return response()->json($event, 200);
+        return response()->json(["name" => $event->name, "min" => $event->start, "max" => $event->end, "days" => $event->days->pluck("name")], 200);
     }
 }
