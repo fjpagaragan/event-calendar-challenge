@@ -13,14 +13,14 @@
                         required
                         ></b-form-input>
                     </b-form-group>
-                    <b-form-group id="input-group-2" label="Select Range" label-for="input-3">  
+                    <b-form-group id="input-group-3" label="Select Range" label-for="input-3">  
                         <vc-date-picker v-model="range" :masks="masks" :min-date="datePicker.min" :max-date="datePicker.max" is-range>
                             <template v-slot="{ inputValue, inputEvents }">
                                 <div class="flex justify-center items-center">
                                 <input
                                     :value="inputValue.start"
                                     v-on="inputEvents.start"
-                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300 form-control"
                                 />
                                 <svg
                                     class="w-5 h-4 mx-2"
@@ -38,7 +38,7 @@
                                 <input
                                     :value="inputValue.end"
                                     v-on="inputEvents.end"
-                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300"
+                                    class="border px-5 py-1 w-32 rounded focus:outline-none focus:border-indigo-300 form-control"
                                 />
                                 </div>
                             </template>
