@@ -1,10 +1,10 @@
 <template>
-    <b-container fluid class="p-4">
-        <h2>Calendar</h2>
+    <b-container fluid="sm">
+        <h2 class="mt-4">Calendar</h2>
         <hr>
-        <b-card class="bg-card p-2">
+        <b-card class="bg-card">
             <b-row>
-                <b-col cols="4">
+                <b-col sm="4">
                     <b-form-group id="input-group-2" label="Event" label-for="input-2">
                         <b-form-input
                         id="input-2"
@@ -61,7 +61,7 @@
                     </b-button>
                     <b-button v-else variant="primary" class="btn-primary mt-3" v-on:click="submit()">Save</b-button>
                 </b-col>
-                <b-col cols="8" class="px-5">
+                <b-col sm="8">
                     <h3>{{ month }}</h3>
                     <div class="list-content" id="custom-scrollbar">
                         <b-list-group v-for="index in datePicker.max.getDate()" :key="index">
