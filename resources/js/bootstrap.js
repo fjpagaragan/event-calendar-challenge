@@ -31,13 +31,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue' //Importing
 import VCalendar from 'v-calendar';
-
+import Notifications from 'vue-notification'
 
 Vue.use(BootstrapVue) 
 // Use v-calendar & v-date-picker components
 Vue.use(VCalendar, {
   componentPrefix: 'vc',  
 });
+Vue.use(Notifications)
 
 Vue.component('calendar-component', require('./components/CalendarComponent.vue').default);
 Vue.component("navbar-component", require('./components/NavbarComponent.vue').default);

@@ -9,6 +9,7 @@
                         <b-form-input
                         id="input-2"
                         class="form-control"
+                        v-model="name"
                         required
                         ></b-form-input>
                     </b-form-group>
@@ -45,16 +46,20 @@
                     </b-form-group>
                     <b-form-group id="input-group-4">
                         <b-form-checkbox-group id="checkboxes-4">
-                            <b-form-checkbox value="m">Monday</b-form-checkbox>
-                            <b-form-checkbox value="tu">Tuesday</b-form-checkbox>
-                            <b-form-checkbox value="w">Wednesday</b-form-checkbox>
-                            <b-form-checkbox value="th">Thursday</b-form-checkbox>
-                            <b-form-checkbox value="f">Friday</b-form-checkbox>
-                            <b-form-checkbox value="sa">Saturday</b-form-checkbox>
-                            <b-form-checkbox value="su">Sunday</b-form-checkbox>
+                            <b-form-checkbox value="Monday" v-model="daysCheckbox">Monday</b-form-checkbox>
+                            <b-form-checkbox value="Tuesday" v-model="daysCheckbox">Tuesday</b-form-checkbox>
+                            <b-form-checkbox value="Wednesday" v-model="daysCheckbox">Wednesday</b-form-checkbox>
+                            <b-form-checkbox value="Thursday" v-model="daysCheckbox">Thursday</b-form-checkbox>
+                            <b-form-checkbox value="Friday" v-model="daysCheckbox">Friday</b-form-checkbox>
+                            <b-form-checkbox value="Saturday" v-model="daysCheckbox">Saturday</b-form-checkbox>
+                            <b-form-checkbox value="Sunday" v-model="daysCheckbox">Sunday</b-form-checkbox>
                         </b-form-checkbox-group>
                     </b-form-group>
-                    <b-button variant="primary" class="btn-primary mt-3">Save</b-button>
+                    <b-button variant="primary" class="btn-primary mt-3" v-if="isSubmitting" disabled>
+                        <b-spinner small type="grow"></b-spinner>
+                        Loading...
+                    </b-button>
+                    <b-button v-else variant="primary" class="btn-primary mt-3" v-on:click="submit()">Save</b-button>
                 </b-col>
                 <b-col cols="8" class="px-5">
                     <h3>{{ month }}</h3>
@@ -89,6 +94,38 @@ export default {
         this.getEvents()
     },
     methods: {
+        submit() {
+            this.isSubmitting = true
+            axios.post("api/events/create", {
+                "name" : this.name,
+                "start" : this.range.start ? this.range.start.getFullYear()+"-"+this.range.start.getMonth()+"-"+this.range.start.getDate() : null,
+                "end" : this.range.end ? this.range.end.getFullYear()+"-"+ (this.range.end.getDate() == 31 ? this.range.end.getMonth() + 1 : this.range.end.getMonth()) +"-"+this.range.end.getDate() : null,
+                "days" : JSON.parse(JSON.stringify(this.daysCheckbox)),
+            })
+            .then(response => {
+                console.log(response.data);
+                this.isSubmitting = false
+                this.getEvents()
+                this.$notify({
+                    group: "success",
+                    type: "success",
+                    position: "top right",
+                    title: "Message",
+                    text: response.data.message
+                });
+            })
+            .catch(e => {
+                console.log(e.response);
+                this.isSubmitting = false
+                this.$notify({
+                    group: "success",
+                    type: "error",
+                    position: "top right",
+                    title: "Message",
+                    text: e.response.data.message
+                })
+            })
+        },
         getEvents() {
             axios.post("/api/events/display", {
             })
@@ -127,6 +164,9 @@ export default {
             },
             //
             events: {},
+            name: null,
+            daysCheckbox: null,
+            isSubmitting: false,
         };
   },
 }

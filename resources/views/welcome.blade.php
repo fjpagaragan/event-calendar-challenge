@@ -28,6 +28,7 @@
         <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
 
             <calendar-component></calendar-component>
+            <notifications group="success" />
         </div>
         </div>
     <script src="{{ asset('js/app.js') }}"></script>
